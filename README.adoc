@@ -1,0 +1,9 @@
+= LaTeX2Src
+
+LaTeX macros and style files for typesetting various aspects of a programming course.
+
+This is a collection of macros that is meant for typesetting exams, slides, lecture nodes,
+code listings and other material that is needed for a programming course.
+
+These macros are mostly based on other packages, adding some additional features and
+macros that may be useful for courses.
