@@ -1,0 +1,85 @@
+\documentclass[addpoints]{exam}
+
+\usepackage{amsmath}
+\usepackage{etoolbox}
+\usepackage[skins]{tcolorbox}
+\usepackage{titling}
+
+\makeatletter
+    \newcommand{\coursetitle}[1]{\def\@coursetitle{#1}}
+    \newcommand{\classname}[1]{\def\@classname{#1}}
+    \newcommand{\examtitle}[1]{\def\@examtitle{#1}}
+    \newcommand{\examtitleshort}[1]{\def\@examtitleshort{#1}}
+
+    \author{\lbrack Author\rbrack}
+    \date{\lbrack Date\rbrack}
+    \coursetitle{\lbrack Course Title\rbrack}
+    \classname{\lbrack Class Name\rbrack}
+    \examtitle{Exam for \@coursetitle}
+    \examtitleshort{\@coursetitle\ -- Exam}
+
+    \title{\@examtitle}
+    \pagestyle{headandfoot}
+    \header{\@classname}{\@examtitleshort}{\thedate}
+    \headrule
+    \footer{}{}{Page \thepage/\numpages}
+    
+    \newtcolorbox{taskbox}{
+        enhanced,
+        frame hidden,
+        colback=black!5!white,
+        sharp corners,
+    }
+    \newcommand{\task}[2][]{
+        % #1: task title
+        % #2: points
+        \newpage
+        \def\@tasktitle{\ifblank{#1}{}{ (#1)}}
+        \qformat{
+            \begin{taskbox}
+                \textbf{Question \thequestion \@tasktitle \hfill \ifblank{#2}{}{(\thepoints)}}
+            \end{taskbox}
+        }
+        \question[#2]
+    }
+\makeatother
+
+\begin{document}
+    \begin{coverpages}
+        \maketitle
+        \thispagestyle{empty}
+        \vfill
+        \begin{center}
+            \gradetable[h][questions]
+        \end{center}
+    \end{coverpages}
+
+    \begin{questions}
+        \task[Sorting]{5}
+        Sort the following list of numbers with the insertion sort algorithm:
+        \begin{align*}
+            5, 2, 4, 6, 1, 3
+        \end{align*}
+
+        \task[Binary Search Trees]{5}
+        Insert the following numbers into a binary search tree in the order given:
+        \begin{align*}
+            5, 2, 4, 6, 1, 3
+        \end{align*}
+
+        \task{5}
+        The following code contains a bug. Find the bug and explain how to fix it:
+        \begin{verbatim}
+            bool is_odd(int n) {
+                if (n % 2 == 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        \end{verbatim}
+
+        \task{}
+        Name three sorting algorithms and explain how they work.
+    \end{questions}
+\end{document}

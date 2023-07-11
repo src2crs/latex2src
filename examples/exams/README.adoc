@@ -1,0 +1,17 @@
+= Exams
+
+This directory contains examples for typesetting exams.
+It builds on the exam package and defines additional commands that simplify
+writing exams.
+
+== Features ==
+
+* There is a custom `\task` command for defining tasks.
+    ** It takes two arguments: the task's title (optional) and the task's points.
+    ** I don't use the `\titledquestion` command, because that would use the
+       question title in the grading table, which is not what I want.
+    ** Instead, I use my own `\task` command and define task title that is used
+       in the task itself (using `\qformat`), but not in the grading table.
+* There are custom commands for defining the exam's title, date, and duration.
+  For the title, there are short and long versions that are used in the header
+  and the title page, respectively.
