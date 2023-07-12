@@ -1,0 +1,5 @@
+# Exam without a cover page.
+
+This is an example of an exam where the cover page is not shown.
+
+There are two `.tex` files in this directory, one with solutions enabled and one without.

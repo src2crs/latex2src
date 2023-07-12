@@ -1,17 +1,25 @@
 = Exams
 
-This directory contains examples for typesetting exams.
-It builds on the exam package and defines additional commands that simplify
-writing exams.
+This directory contains examples for typesetting exams using the `latex2exam` package.
+
+The package builds on the `exam` package and defines additional environments and commands
+for defining exams.
 
 == Features ==
 
+* There is a custom environment `\begin{exam}` ... `\end{exam}` for defining
+  exams.
+
 * There is a custom `\task` command for defining tasks.
-    ** It takes two arguments: the task's title (optional) and the task's points.
-    ** I don't use the `\titledquestion` command, because that would use the
-       question title in the grading table, which is not what I want.
-    ** Instead, I use my own `\task` command and define task title that is used
-       in the task itself (using `\qformat`), but not in the grading table.
+  ** It takes two arguments: the task's title (optional) and the task's points.
+  ** It uses the `\question` command from the `exam` package that already
+     defines a counter for the points and adds the points to the grading table.
+  ** It doesn't use the `\titledquestion` command from the `exam` package,
+     because that would use the question title in the grading table.
+** Instead, it typesets the title itself using `\qformat`.
+
 * There are custom commands for defining the exam's title, date, and duration.
   For the title, there are short and long versions that are used in the header
   and the title page, respectively.
+
+* There is a custom command for defining the exam's cover page.

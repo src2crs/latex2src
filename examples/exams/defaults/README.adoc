@@ -1,0 +1,6 @@
+# Exam explicitly setting default values for all options
+
+This is an example of an exam where all options are explicitly set to their default values.
+This should produce the same pdfs as the `plain` example.
+
+There are two `.tex` files in this directory, one with solutions enabled and one without.

@@ -1,0 +1,152 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{latex2exam}[2023/07/16 LaTeX2Exam]
+
+\RequirePackage{etoolbox}
+\RequirePackage[skins]{tcolorbox}
+
+% Helpers for defining macros
+\NewDocumentCommand{\lcrs@setter}{ m o }{
+    % This will define a macro named \<name> that will store
+    % a value in a macro named \lcrs@<name>.
+    % #1: <name>
+    % #2: default value for \lcrs@<name>
+    \csdef{#1}##1{\csdef{lcrs@#1}{##1}}
+    \csdef{the#1}{\csuse{lcrs@#1}}
+    \IfValueT{#2}{\csuse{#1}{#2}}
+}
+
+% Setters for strings used in the exam.
+\lcrs@setter{examtitle}
+\lcrs@setter{classname}
+\lcrs@setter{examdate}
+\lcrs@setter{coverpage}
+
+% Language support
+\newtoggle{lcrs@language@english}
+\newtoggle{lcrs@language@german}
+
+% Selector for english language
+\csdef{lcrs@setlanguage@en}{
+    \toggletrue{lcrs@language@english}
+    \togglefalse{lcrs@language@german}
+    \pointpoints{point}{points}
+    \examtitle{Course Title -- Final Exam}
+    \examdate{[Date]}
+    \classname{Class Name}
+}
+
+% Selector for german language
+\csdef{lcrs@setlanguage@de}{
+    \togglefalse{lcrs@language@english}
+    \toggletrue{lcrs@language@german}
+    \pointpoints{Punkt}{Punkte}
+    \examtitle{Vorlesungsbezeichnung -- Abschlussklausur}
+    \examdate{[Datum]}
+    \classname{Kursbezeichnung}
+}
+
+\DeclareOption{en}{\lcrs@setlanguage@en}
+\DeclareOption{de}{\lcrs@setlanguage@de}
+
+\ExecuteOptions{en}
+\ProcessOptions\relax
+
+% Macro for inserting the title page into the text.
+% Respects whether the cover page is enabled or not.
+\NewDocumentCommand{\insertcoverpage}{}{
+    % #1: file name from which to read the cover page.
+    \iftoggle{lcrs@coverpage@enabled}{
+        \begin{coverpages}
+            \lcrs@coverpage
+        \end{coverpages}
+    }{}
+}
+
+% Macros for controlling the cover page.
+\newtoggle{lcrs@coverpage@enabled}
+\NewDocumentCommand{\enablecoverpage}{}{
+    \toggletrue{lcrs@coverpage@enabled}
+}
+\NewDocumentCommand{\disablecoverpage}{}{
+    \togglefalse{lcrs@coverpage@enabled}
+}
+\enablecoverpage
+
+% A TColorBox for drawing task headers.
+\newtcolorbox{taskbox}{
+    enhanced,
+    frame hidden,
+    colback=black!5!white,
+    sharp corners,
+}
+
+% The actual task macro, uses the above taskbox.
+\NewDocumentCommand{\task}{ d<> o }{
+    % #1: task title
+    % #2: points
+    \newpage
+    \IfValueTF{#1}{\def\lcrs@currenttasktitle{ (#1)}}{\def\lcrs@currenttasktitle{}}
+    \IfValueTF{#2}{\def\lcrs@currenttaskpoints{ (\thepoints)}}{\def\lcrs@currenttaskpoints{}}
+    \def\lcrs@currenttasktitletext{\textbf{Question \thequestion \lcrs@currenttasktitle \hfill \lcrs@currenttaskpoints}}
+    \qformat{
+        \begin{taskbox}
+            \lcrs@currenttasktitletext
+        \end{taskbox}
+    }
+    \question[\IfValueTF{#2}{#2}{0}]
+}
+
+% Read a task from a file.
+% The task is created using the \task macro.
+% The actual content of the task is read from the file.
+\NewDocumentCommand{\inputtask}{ d<> o m }{
+    % #1: title
+    % #2: points
+    % #3: file name
+    \task<#1>[#2]
+    \input{#3}
+}
+
+% A wrapper for the questions environment that will also draw the title page.
+\DeclareDocumentEnvironment{exam}{}{
+    \begin{questions}
+}{
+    \newpage
+    \end{questions}
+}
+
+% Set some default exam styles.
+\pagestyle{headandfoot}
+\header{\lcrs@classname}{\lcrs@examtitle}{\lcrs@examdate}
+\headrule
+\footer{}{}{Page \thepage/\numpages}
+
+% The default cover page.
+\coverpage{
+    \thispagestyle{empty}
+    \begin{tcolorbox}[
+        enhanced,
+        frame hidden,
+        colback=black!10!white,
+        sharp corners,
+        width=\textwidth,
+        valign=center,
+        halign=center,
+    ]
+        {\Huge\textbf{\lcrs@examtitle}}
+    \end{tcolorbox}
+    \vfill
+    \begin{center}
+        \gradetable[h][questions]
+    \end{center}
+}
+
+% TODOs
+% - [ ] Make the exam cover optional 
+%   - as an option to the exam environment?
+%   - as a package option?
+%   - as a command?
+%   - all of the above?
+% - [ ] Add language support?
+% - [ ] Add support for defining custom cover pages.
+% - [ ] Add support for importing the exam cover from a pdf file.
