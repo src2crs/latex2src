@@ -1,0 +1,5 @@
+# Exam using listings
+
+This is an example of an exam where code listings are used in the tasks.
+
+There are two `.tex` files in this directory, one with solutions enabled and one without.

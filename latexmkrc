@@ -46,3 +46,8 @@ addsrcfiles("$srcdir/exams/custom_cover",
     "exam_custom_cover_with_solutions_en.tex",
     "exam_custom_cover_without_solutions_en.tex",
 );
+
+addsrcfiles("$srcdir/exams/listings",
+    "exam_listings_with_solutions_en.tex",
+    "exam_listings_without_solutions_en.tex",
+);

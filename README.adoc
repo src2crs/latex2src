@@ -7,3 +7,9 @@ code listings and other material that is needed for a programming course.
 
 These macros are mostly based on other packages, adding some additional features and
 macros that may be useful for courses.
+
+== Remarks
+
+There is a go module defined in this repository because there are examples containing
+source code in the `go` language. The module is not used for anything else.
+This simplifies the use of the examples in VSCode.
