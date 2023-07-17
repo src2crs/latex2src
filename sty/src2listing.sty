@@ -1,0 +1,79 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{src2listing}[2023/07/17 Source2Listing]
+
+\RequirePackage{lcrscommon}
+
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins}
+\tcbuselibrary{listings}
+
+% programming language options
+\lcrs@setter{listingdefaultlang}
+\DeclareOption{go}{\listingdefaultlang{go}}
+\DeclareOption{java}{\listingdefaultlang{java}}
+\DeclareOption{latex}{\listingdefaultlang{tex}}
+
+\ExecuteOptions{go}
+\ProcessOptions\relax
+
+% Styling of listings.
+\lstdefinestyle{lcrsdefaultlistingstyle}{
+    basicstyle=\ttfamily\small,
+    language=\lcrs@listingdefaultlang,
+    numberstyle=\tiny,
+    numbers=left,
+    tabsize=2,
+    breaklines=true,
+    xleftmargin=1em,
+}
+
+% Common tcolorbox styles for listing boxes.
+\tcbset{lcrsdefaultlistingbox/.style={%
+    enhanced,
+    boxrule=0.2pt,
+    frame style={draw=black!10},
+    colback=yellow!10!white,
+    coltitle=black!80,
+    colbacktitle=black!10,
+    fonttitle=\bfseries,
+}}
+\tcbset{lcrslistingonlybox/.style={%
+    lcrsdefaultlistingbox,
+    listing only,
+}}
+
+
+
+\NewTCBListing{listingbox}{ O{} D<>{} m }{%
+    % #1: tcolorbox options
+    % #2: listing options
+    % #3: title
+    lcrsdefaultlistingbox,
+    title={#3},
+    listing options = {
+        style=lcrsdefaultlistingstyle,
+        #2,
+    },
+    #1
+}
+
+% Input a source file as a listing.
+% Use the current working directory as the base directory.
+% Doesn't have a lower part by default.
+\NewTCBInputListing{\inputsrcfile}{ O{} D<>{} m !O{0-1000} }{%
+    % #1: tcolorbox options
+    % #2: listing options
+    % #3: file name
+    % #4: line range
+    lcrslistingonlybox,
+    listing file = \lcrs@cwd/#3,
+    listing options = {
+        style=lcrsdefaultlistingstyle,
+        linerange={#4},
+        rangeprefix=/***,
+        rangesuffix=***/,
+        includerangemarker=false,
+        #2,
+    },
+    #1
+}
