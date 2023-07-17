@@ -11,6 +11,7 @@
 \lcrs@setter{classname}
 \lcrs@setter{examdate}
 \lcrs@setter{coverpage}
+\lcrs@setter{questionidentifier}
 
 % Language support
 \newtoggle{lcrs@language@english}
@@ -24,6 +25,7 @@
     \examtitle{Course Title -- Final Exam}
     \examdate{[Date]}
     \classname{Class Name}
+    \questionidentifier{Question}
 }
 
 % Selector for german language
@@ -34,6 +36,7 @@
     \examtitle{Vorlesungsbezeichnung -- Abschlussklausur}
     \examdate{[Datum]}
     \classname{Kursbezeichnung}
+    \questionidentifier{Aufgabe}
 }
 
 \DeclareOption{en}{\lcrs@setlanguage@en}
@@ -78,7 +81,7 @@
     \newpage
     \IfValueTF{#1}{\def\lcrs@currenttasktitle{ (#1)}}{\def\lcrs@currenttasktitle{}}
     \IfValueTF{#2}{\def\lcrs@currenttaskpoints{ (\thepoints)}}{\def\lcrs@currenttaskpoints{}}
-    \def\lcrs@currenttasktitletext{\textbf{Question \thequestion \lcrs@currenttasktitle \hfill \lcrs@currenttaskpoints}}
+    \def\lcrs@currenttasktitletext{\textbf{\lcrs@questionidentifier\ \thequestion \lcrs@currenttasktitle \hfill \lcrs@currenttaskpoints}}
     \qformat{
         \begin{taskbox}
             \lcrs@currenttasktitletext
@@ -139,11 +142,5 @@
 }
 
 % TODOs
-% - [ ] Make the exam cover optional 
-%   - as an option to the exam environment?
-%   - as a package option?
-%   - as a command?
-%   - all of the above?
-% - [ ] Add language support?
 % - [ ] Add support for defining custom cover pages.
 % - [ ] Add support for importing the exam cover from a pdf file.
