@@ -1,7 +1,8 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{latex2exam}[2023/07/16 LaTeX2Exam]
+\ProvidesPackage{latex2exam}[2023/07/17 LaTeX2Exam]
 
 \RequirePackage{lcrscommon}
+\RequirePackage{cwd2sections}
 
 \RequirePackage[skins]{tcolorbox}
 
@@ -86,23 +87,29 @@
     \question[\IfValueTF{#2}{#2}{0}]
 }
 
-% Read a task from a file.
+% Read a task from a file relative to the current working directory (\cwd in cwd2sections.sty).
 % The task is created using the \task macro.
 % The actual content of the task is read from the file.
-\NewDocumentCommand{\inputtask}{ d<> o m }{
+\NewDocumentCommand{\inputtask}{ d<> o m d<> }{
     % #1: title
     % #2: points
-    % #3: file name
-    \task<#1>[#2]
-    \input{#3}
+    % #3: directory name
+    % #4: file name (default: directory name)
+    \begin{cwdsection}{#3}
+        \task<#1>[#2]
+        \IfValueTF{#4}{\cwdinput{#4}}{\cwdinput{#3}}
+    \end{cwdsection}
 }
 
 % A wrapper for the questions environment that will also draw the title page.
-\DeclareDocumentEnvironment{exam}{}{
+\DeclareDocumentEnvironment{exam}{ O{tasks} }{
+    % #1: directory for the tasks
+    \begin{cwdsection}{#1}
     \begin{questions}
 }{
     \newpage
     \end{questions}
+    \end{cwdsection}
 }
 
 % Set some default exam styles.
