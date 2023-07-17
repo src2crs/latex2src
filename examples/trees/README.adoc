@@ -1,0 +1,3 @@
+= Trees
+
+This directory contains examples for using the tree drawing commands from `scr2trees.sty`.

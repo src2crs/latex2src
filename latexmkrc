@@ -17,7 +17,8 @@ sub addsrcfiles {
 $emulate_aux = 1;
 $out_dir = "$builddir";
 $aux_dir = "$auxdir";
-$pdflatex = 'pdflatex -synctex=1 -interaction=nonstopmode';
+#$pdflatex = 'pdflatex -synctex=1 -interaction=nonstopmode';
+$pdflatex = 'lualatex -interaction=nonstopmode';
 $pdf_mode = 1;
 $do_cd = 1;
 $clean_ext = 'snm nav synctex.gz';
@@ -52,6 +53,15 @@ addsrcfiles("$srcdir/exams/listings",
     "exam_listings_without_solutions_en.tex",
 );
 
+addsrcfiles("$srcdir/exams/trees",
+    "exam_trees_with_solutions_de.tex",
+    "exam_trees_without_solutions_de.tex",
+);
+
 addsrcfiles("$srcdir/cwd2sections",
     "cwd2sections.tex",
+);
+
+addsrcfiles("$srcdir/trees",
+    "src2trees.tex",
 );

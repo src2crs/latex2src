@@ -1,0 +1,30 @@
+Fügen Sie die folgenden Zahlen nacheinander in einen
+\emph{AVL-Baum}
+ein:
+
+\begin{align*}
+  \begin{array}{cccccc}
+    55 & 10 & 2 & 17 & 35 & 1 
+      \end{array}
+\end{align*}
+
+Zeichnen Sie den Baum vor und nach jeder durchgeführten Rotation.
+Geben Sie auch jeweils an, was für Rotationen Sie durchführen.
+
+\begin{solution}
+
+\begin{tcbraster}[raster columns = 3, raster equal height=rows]
+  \treebox{Einfügen von $55, 10, 2$} { 55 -- { 10 -- 2 } }
+  \treebox{R-Rotation um $55$}       { 10 -- { 2 , 55 } }
+  \blankbox
+
+  \treebox{Einfügen von $17, 35$}    { 10 -- { 2 , 55 -- { 17 -- { , 35 } } } }
+  \treebox{RL-Rotation um $55$ (1)}  { 10 -- { 2 , 17 -- { , 55 -- 35 } } }
+  \treebox{RL-Rotation um $55$ (2)}  { 17 -- { { 10 -- 2 }, { 55 -- 35 } } }
+
+  \treebox{Einfügen von $1$}         { 17 -- { { 10 -- 2 -- 1 }, { 55 -- 35 } } }
+  \treebox{R-Rotation um $10$}       { 17 -- { { 2 -- { 1, 10 } }, { 55 -- 35 } } }
+  \blankbox
+\end{tcbraster}
+
+\end{solution}

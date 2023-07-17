@@ -1,0 +1,25 @@
+Fügen Sie die folgenden Zahlen nacheinander in einen
+\emph{Min-Heap}
+ein:
+
+\begin{align*}
+  \begin{array}{ccccccc}
+    50 & 15 & 20 & 5 & 10 & 0 & 25
+  \end{array}
+\end{align*}
+
+Zeichnen Sie den Baum vor und nach jedem vollständigen Einfügen.
+
+\begin{solution}
+
+\begin{tcbraster}[raster columns = 3, raster equal height=rows]
+  \treebox{Einfügen von $50$} { 50 }
+  \treebox{Einfügen von $15$} { 15 -- 50 }
+  \treebox{Einfügen von $20$} { 15 -- { 50, 20 } }
+  \treebox{Einfügen von $5$}  { 5 -- { { 15 -- 50 }, 20 } }
+  \treebox{Einfügen von $10$} { 5 -- { { 10 -- { 50, 15 } }, 20 } }
+  \treebox{Einfügen von $0$}  { 0 -- { { 10 -- { 50, 15 } }, 5 -- { 20 } } }
+  \treebox{Einfügen von $25$} { 0 -- { { 10 -- { 50, 15 } }, 5 -- { 20, 25 } } }
+\end{tcbraster}
+
+\end{solution}

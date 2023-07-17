@@ -1,0 +1,36 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{src2trees}[2023/07/17 Source2Trees]
+
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins}
+\tcbuselibrary{xparse}
+
+\RequirePackage{tikz}
+\usetikzlibrary{graphs, graphdrawing}
+\usegdlibrary{trees}
+
+%% A box for drawing trees.
+% #1: title
+% #2: content
+\NewTotalTCBox{\treebox}{ m m }{
+  enhanced,
+  frame hidden,
+  sharpish corners,
+  colback=black!2,
+  adjusted title = {#1},
+  fonttitle={\small \centering \sffamily},
+  coltitle=black,
+  colbacktitle=black!5,
+}{
+  \centering
+  \tikz \graph[
+    tree layout,
+    minimum number of children = 2,
+    sibling sep=0pt,
+    level distance = 3mm,
+    nodes={font={\small}},
+  ]{#2};
+}
+\NewTotalTCBox{\blankbox}{}{blankest}{}
+
+\endinput

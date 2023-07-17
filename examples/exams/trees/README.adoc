@@ -1,0 +1,6 @@
+# Plain exam using default values for all options
+
+This is the simplest way to use the package.
+The `.tex` files don't set any options, so the default values are used.
+
+There are two `.tex` files in this directory, one with solutions enabled and one without.

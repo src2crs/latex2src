@@ -1,0 +1,43 @@
+\documentclass{scrartcl}
+
+\usepackage{src2listing}
+\usepackage{src2trees}
+
+\begin{document}
+
+\begin{listingbox}{A binary search tree}
+    \treebox{Elements $42, 10, 77$} { 42 -- { 10, 77 } }
+\end{listingbox}
+
+\begin{listingbox}{Another binary search tree}
+  \treebox{Elements $42, 10, 77$}
+  { 42 -- {
+      10 -- { 5, 20 }, 
+      77 -- { , 103} 
+    }
+  }
+\end{listingbox}
+
+\begin{listingbox}{An even bigger one}
+  \treebox{Elements $42, 10, 77$} 
+  { 42 --
+    { 10 -- 
+      { 5, 
+        20 --
+        { , 
+          35 -- 
+          { , 
+            40 
+          } 
+        }
+      },
+      77 -- 
+      { 80 -- 
+        { 79, 95 }, 
+        103
+      }
+    }
+  }
+\end{listingbox}
+
+\end{document}
