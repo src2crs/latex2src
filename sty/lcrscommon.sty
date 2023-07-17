@@ -1,0 +1,15 @@
+\RequirePackage{etoolbox}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{lcrscommon}[2023/07/17 LaTeX2Src-Common]
+
+% Helpers for defining macros
+
+% This will define a macro named \<name> that will store
+% a value in a macro named \lcrs@<name>.
+\NewDocumentCommand{\lcrs@setter}{ m o }{
+    % #1: <name>
+    % #2: default value for \lcrs@<name>
+    \csdef{#1}##1{\csdef{lcrs@#1}{##1}}
+    \csdef{the#1}{\csuse{lcrs@#1}}
+    \IfValueT{#2}{\csuse{#1}{#2}}
+}

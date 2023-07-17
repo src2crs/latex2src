@@ -1,0 +1,90 @@
+\documentclass{scrartcl}
+
+\usepackage{cwd2sections}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{listings}
+\tcbuselibrary{skins}
+
+\NewTCBListing{latexbox}{ O{} m }{%
+    enhanced,
+    boxrule=0.2pt,
+    frame style={draw=black!10},
+    colback=yellow!10!white,
+    coltitle=black!80,
+    colbacktitle=black!10,
+    fonttitle=\bfseries,
+    title={#2},#1
+}
+
+\begin{document}
+
+\begin{latexbox}{Use \lstinline{\\thecwd} directly}
+    \thecwd
+\end{latexbox}
+
+\begin{latexbox}{Use \lstinline{\\cwd} to set a directory before using \lstinline{\\thecwd}}
+    \cwd{foo}
+    \thecwd
+\end{latexbox}
+
+\begin{latexbox}{Use \lstinline{\\cwdinput} to input a file from the current and from a subdirectory}
+    \cwdinput{foo}
+    \cwdinput{subdir1/foo}
+\end{latexbox}
+
+\begin{latexbox}{Use \lstinline{\\cwdinput} to input a file from a subdirectory after setting the directory}
+    \cwd{subdir1}
+    \cwdinput{foo}
+    \cwd{subdir1/subsubdir1}
+    \cwdinput{foo}
+    \cwd{subdir1/subsubdir2}
+    \cwdinput{foo}
+    \cwd{subdir2}
+    \cwdinput{foo}
+    \cwd{subdir2/subsubdir1}
+    \cwdinput{foo}
+    \cwd{subdir2/subsubdir2}
+    \cwdinput{foo}
+\end{latexbox}
+
+\begin{latexbox}{Use \lstinline{\\cwdappend} and \lstinline{\\cwdinput} to achieve the same result, resetting the directory where necessary}
+    \cwdappend{subdir1}
+    \cwdinput{foo}
+    \cwdappend{subsubdir1}
+    \cwdinput{foo}
+    \cwd{subdir1}
+    \cwdappend{subsubdir2}
+    \cwdinput{foo}
+    \cwd{.}
+    \cwdappend{subdir2}
+    \cwdinput{foo}
+    \cwdappend{subsubdir1}
+    \cwdinput{foo}
+    \cwd{subdir2}
+    \cwdappend{subsubdir2}
+    \cwdinput{foo}
+\end{latexbox}
+
+\begin{latexbox}{Use the \lstinline{\\cwdsection} environment to achieve the same result}
+    \begin{cwdsection}{subdir1}
+        \cwdinput{foo}
+        \begin{cwdsection}{subsubdir1}
+            \cwdinput{foo}
+        \end{cwdsection}
+        \begin{cwdsection}{subsubdir2}
+            \cwdinput{foo}
+        \end{cwdsection}
+    \end{cwdsection}
+    \begin{cwdsection}{subdir2}
+        \cwdinput{foo}
+        \begin{cwdsection}{subsubdir1}
+            \cwdinput{foo}
+        \end{cwdsection}
+        \begin{cwdsection}{subsubdir2}
+            \cwdinput{foo}
+        \end{cwdsection}
+    \end{cwdsection}
+\end{latexbox}
+
+\end{document}

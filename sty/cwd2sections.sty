@@ -1,0 +1,22 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{cwd2sections}[2023/07/19 Cwd2Sections]
+
+\RequirePackage{lcrscommon}
+
+% Setter for the current working directory, initialized to the current directory.
+\lcrs@setter{cwd}[.]
+
+% Macro to import a file relative to the current working directory (set by \cwd).
+\DeclareDocumentCommand{\cwdinput}{m}{%
+  \input{\lcrs@cwd/#1}%
+}
+
+% Macro to append a path to the current working directory (set by \cwd).
+\DeclareDocumentCommand{\cwdappend}{m}{%
+  \appto{\lcrs@cwd}{/#1}%
+}
+
+% Environment that expects a path und interprets it relative to the
+% current working directory (set by \cwd).
+% Inside the environment, this new working directory is used.
+\NewDocumentEnvironment{cwdsection}{ m }{\cwdappend{#1}}{}

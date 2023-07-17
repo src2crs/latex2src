@@ -1,0 +1,4 @@
+= Sections
+
+This directory contains examples for using the sectioning commands and environments
+defined in the `latex2sections` package.

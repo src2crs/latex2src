@@ -51,3 +51,7 @@ addsrcfiles("$srcdir/exams/listings",
     "exam_listings_with_solutions_en.tex",
     "exam_listings_without_solutions_en.tex",
 );
+
+addsrcfiles("$srcdir/cwd2sections",
+    "cwd2sections.tex",
+);
