@@ -8,12 +8,6 @@
 \RequirePackage{tcolorbox}
 \tcbuselibrary{skins}
 
-% general setters for strings used in the exam.
-\lcrs@setter{examtitle}
-\lcrs@setter{classname}
-\lcrs@setter{examdate}
-\lcrs@setter{coverpage}
-
 % language specific setters
 \lcrs@setter{questionidentifier}
 \lcrs@setter{solutionidentifier}
@@ -44,14 +38,14 @@
 
 % define languages.
 \lcrs@addlanguage{en}{point}{points}{Question}{Solution}[
-    \examtitle{Course Title -- Final Exam}
-    \examdate{[Date]}
-    \classname{Class Name}
+    \csdef{lcrs@defaultexamtitle}{[Course Title] -- Final Exam}
+    \csdef{lcrs@defaultexamdate}{[Date]}
+    \csdef{lcrs@defaultclassname}{[Class Name]}
 ]
 \lcrs@addlanguage{de}{Punkt}{Punkte}{Aufgabe}{Lösung}[
-    \examtitle{Vorlesungsbezeichnung -- Abschlussklausur}
-    \examdate{[Datum]}
-    \classname{Kursbezeichnung}
+    \csdef{lcrs@defaultexamtitle}{[Vorlesungsbezeichnung] -- Abschlussklausur}
+    \csdef{lcrs@defaultexamdate}{[Datum]}
+    \csdef{lcrs@defaultclassname}{[Kursbezeichnung]}
 ]
 
 % Package options for selecting the language
@@ -66,6 +60,12 @@
 \ExecuteOptions{go}
 
 \ProcessOptions\relax
+
+% general setters for strings used in the exam.
+\lcrs@setter{examtitle}[\lcrs@defaultexamtitle]
+\lcrs@setter{classname}[\lcrs@defaultclassname]
+\lcrs@setter{examdate}[\lcrs@defaultexamdate]
+\lcrs@setter{coverpage}[{\lcrs@defaultcoverpage}]
 
 % Macros for controlling the package behaviour.
 \lcrs@toggle{coverpage}[\csdef{insertcoverpage}{\newpage\lcrs@coverpage\newpage}][\csdef{insertcoverpage}{}]
