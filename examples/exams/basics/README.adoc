@@ -1,0 +1,27 @@
+= Common Exam Examples
+
+These are examples of exams that use a common set of task, but with different configurations.
+There are two `.tex` files for each example, one with solutions enabled and one without.
+
+== `exam_plain`
+
+This is the simplest way to use the package.
+The `.tex` files don't set any options, so the default values are used.
+
+== `exam_defaults`
+
+This is an example of an exam where all options are explicitly set to their default values.
+This should produce the same pdfs as the `plain` example.
+
+== `exam_defaults_de`
+
+This is an example of an exam where the language option [de] is used and
+all options are explicitly set to their default values.
+
+== `exam_no_cover`
+
+This is an example of an exam where the cover page is not shown.
+
+== `exam_custom_cover`
+
+This is an example of an exam where a custom cover page is used.

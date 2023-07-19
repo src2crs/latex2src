@@ -1,6 +1,0 @@
-# Exam explicitly setting default values for all options in german
-
-This is an example of an exam where the language option [de] is used and
-all options are explicitly set to their default values.
-
-There are two `.tex` files in this directory, one with solutions enabled and one without.

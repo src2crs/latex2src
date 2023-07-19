@@ -1,8 +1,3 @@
-\documentclass{exam}
-
-\usepackage{latex2exam}
-\disablesolutions
-
 \coverpage{%
     \begin{center}
         \textbf{\Large \theclassname} \\
@@ -10,11 +5,14 @@
         \textbf{\large \theexamtitle} \\
         \vspace{0.5cm}
         \textbf{\large \theexamdate} \\
+        \ifsolutions{
+            \vspace{0.5cm}
+            \textbf{\large Solutions to the Questions.} \\
+            }{}
     \end{center}
     \vfill
+    %
     \begin{center}
         \pointtable[h][questions]
     \end{center}
 }
-
-\input{exam_content.tex}
