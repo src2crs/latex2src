@@ -68,6 +68,18 @@
 }
 \enablecoverpage
 
+% Macros for controlling whether solutions are shown.
+\newtoggle{lcrs@solutions@enabled}
+\NewDocumentCommand{\enablesolutions}{}{
+    \toggletrue{lcrs@solutions@enabled}
+    \printanswers
+}
+\NewDocumentCommand{\disablesolutions}{}{
+    \togglefalse{lcrs@solutions@enabled}
+    \noprintanswers
+}
+\enablesolutions
+
 % A TColorBox for drawing task headers.
 \newtcolorbox{taskbox}{
     enhanced,
