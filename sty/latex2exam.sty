@@ -1,10 +1,12 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{latex2exam}[2023/07/17 LaTeX2Exam]
+\ProvidesPackage{latex2exam}[2023/07/18 LaTeX2Exam]
 
 \RequirePackage{lcrscommon}
 \RequirePackage{cwd2sections}
+\RequirePackage{src2listing}
 
-\RequirePackage[skins]{tcolorbox}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins}
 
 % Setters for strings used in the exam.
 \lcrs@setter{examtitle}
@@ -119,7 +121,7 @@
 \pagestyle{headandfoot}
 \header{\lcrs@classname}{\lcrs@examtitle}{\lcrs@examdate}
 \headrule
-\footer{}{}{Page \thepage/\numpages}
+\footer{}{}{\thepage/\numpages}
 
 % The default cover page.
 \coverpage{
@@ -140,6 +142,9 @@
         \gradetable[h][questions]
     \end{center}
 }
+
+% The default style for listing boxes
+\defaultlistingstyle{lcrsexamlistingbox}
 
 % TODOs
 % - [ ] Add support for defining custom cover pages.
