@@ -14,14 +14,11 @@
 \lcrs@setter{examdate}
 \lcrs@setter{coverpage}
 
-% Language support
-\newtoggle{lcrs@language@english}
-\newtoggle{lcrs@language@german}
-
 % language specific setters
 \lcrs@setter{questionidentifier}
 \lcrs@setter{solutionidentifier}
 
+% macro for adding a language
 \NewDocumentCommand{\lcrs@addlanguage}{ m m m m m O{} }{
     % #1: language
     % #2: points singular
@@ -38,7 +35,7 @@
     }
 }
 
-% Language selectors
+% define languages.
 \lcrs@addlanguage{en}{point}{points}{Question}{Solution}[
     \examtitle{Course Title -- Final Exam}
     \examdate{[Date]}
@@ -148,3 +145,5 @@
 % TODOs
 % - [ ] Add support for defining custom cover pages.
 % - [ ] Add support for importing the exam cover from a pdf file.
+% - [ ] Add support for defining language dependent content in the document.
+% - [ ] Add support for defining language dependent strings/variable setters.
