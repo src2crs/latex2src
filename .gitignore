@@ -1,3 +1,7 @@
 # LaTeX artifacts/build dirs
 build
 aux
+
+*.aux
+*.log
+*.pdf
