@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{src2listing}[2023/07/17 Source2Listing]
+\ProvidesPackage{src2listing}[2023/07/18 Source2Listing]
 
 \RequirePackage{lcrscommon}
 
@@ -37,12 +37,12 @@
     colbacktitle=black!10,
     fonttitle=\bfseries,
 }}
-\tcbset{lcrslistingonlybox/.style={%
+\tcbset{lcrsexamlistingbox/.style={%
     lcrsdefaultlistingbox,
-    listing only,
+    colback=black!2!white,
 }}
 
-
+\lcrs@setter{defaultlistingstyle}[lcrsdefaultlistingstyle]
 
 \NewTCBListing{listingbox}{ O{} D<>{} m }{%
     % #1: tcolorbox options
@@ -60,12 +60,13 @@
 % Input a source file as a listing.
 % Use the current working directory as the base directory.
 % Doesn't have a lower part by default.
-\NewTCBInputListing{\inputsrcfile}{ O{} D<>{} m !O{0-1000} }{%
+\NewTCBInputListing{\inputsrcfile}{ O{\lcrs@defaultlistingstyle} D<>{} m !O{0-1000} }{%
     % #1: tcolorbox options
     % #2: listing options
     % #3: file name
     % #4: line range
-    lcrslistingonlybox,
+    lcrsdefaultlistingbox,
+    listing only,
     listing file = \lcrs@cwd/#3,
     listing options = {
         style=lcrsdefaultlistingstyle,
