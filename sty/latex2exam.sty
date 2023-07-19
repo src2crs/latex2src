@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{latex2exam}[2023/07/18 LaTeX2Exam]
+\ProvidesPackage{latex2exam}[2023/07/19 LaTeX2Exam]
 
 \RequirePackage{lcrscommon}
 \RequirePackage{cwd2sections}
@@ -58,27 +58,9 @@
     }{}
 }
 
-% Macros for controlling the cover page.
-\newtoggle{lcrs@coverpage@enabled}
-\NewDocumentCommand{\enablecoverpage}{}{
-    \toggletrue{lcrs@coverpage@enabled}
-}
-\NewDocumentCommand{\disablecoverpage}{}{
-    \togglefalse{lcrs@coverpage@enabled}
-}
-\enablecoverpage
-
-% Macros for controlling whether solutions are shown.
-\newtoggle{lcrs@solutions@enabled}
-\NewDocumentCommand{\enablesolutions}{}{
-    \toggletrue{lcrs@solutions@enabled}
-    \printanswers
-}
-\NewDocumentCommand{\disablesolutions}{}{
-    \togglefalse{lcrs@solutions@enabled}
-    \noprintanswers
-}
-\enablesolutions
+% Macros for controlling the package behaviour.
+\lcrs@toggle{coverpage}
+\lcrs@toggle{solutions}[\printanswers][\noprintanswers]
 
 % A TColorBox for drawing task headers.
 \newtcolorbox{taskbox}{
