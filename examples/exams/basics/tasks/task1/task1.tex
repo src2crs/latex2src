@@ -1,5 +1,11 @@
-This is a task with title and points that is defined using the \texttt{\textbackslash inputtask} command.
+\ifexamlanguage{en}{
+    This is a task with title and points that is defined using the \texttt{\textbackslash inputtask} command.
+}
+\ifexamlanguage{de}{
+    Dies ist eine Aufgabe mit Titel und Punkten, die mit dem Befehl \texttt{\textbackslash inputtask} definiert wurde.
+}
 
 \begin{solution}
-    This is a solution to the task.
+    \ifexamlanguage{en}{This is a solution to the task.}
+    \ifexamlanguage{de}{Dies ist eine Lösung zur Aufgabe.}
 \end{solution}

@@ -1,7 +1,12 @@
 \task
-
-This is a task with neither title nor points that is defined using the \texttt{\textbackslash task} command.
+\ifexamlanguage{en}{
+    This is a task with neither title nor points that is defined using the \texttt{\textbackslash task} command.
+}
+\ifexamlanguage{de}{
+    Dies ist eine Aufgabe ohne Titel oder Punkte, die mit dem Befehl \texttt{\textbackslash task} definiert wurde.
+}
 
 \begin{solution}
-    This is a solution to the task.
+    \ifexamlanguage{en}{This is a solution to the task.}
+    \ifexamlanguage{de}{Dies ist eine Lösung zur Aufgabe.}
 \end{solution}

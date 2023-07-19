@@ -27,12 +27,19 @@
     % #5: solution identifier
     % #6: Code to execute if the language is selected.
     \csdef{lcrs@setlanguage@#1}{
-        \csdef{currentlanguage}{#1}
+        \csdef{lcrs@currentlanguage}{#1}
         \pointpoints{#2}{#3}
         \questionidentifier{#4}
         \solutionidentifier{#5}
         #6
     }
+}
+
+% Macro for typesetting a string if a language is selected.
+\NewDocumentCommand{\ifexamlanguage}{ m m }{
+    % #1: language
+    % #2: string value, printed only if the language is selected.
+    \ifcsstring{lcrs@currentlanguage}{#1}{#2}{}
 }
 
 % define languages.
