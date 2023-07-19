@@ -8,58 +8,63 @@
 \RequirePackage{tcolorbox}
 \tcbuselibrary{skins}
 
-% Setters for strings used in the exam.
+% general setters for strings used in the exam.
 \lcrs@setter{examtitle}
 \lcrs@setter{classname}
 \lcrs@setter{examdate}
 \lcrs@setter{coverpage}
-\lcrs@setter{questionidentifier}
 
 % Language support
 \newtoggle{lcrs@language@english}
 \newtoggle{lcrs@language@german}
 
-% Selector for english language
-\csdef{lcrs@setlanguage@en}{
-    \toggletrue{lcrs@language@english}
-    \togglefalse{lcrs@language@german}
-    \pointpoints{point}{points}
+% language specific setters
+\lcrs@setter{questionidentifier}
+\lcrs@setter{solutionidentifier}
+
+\NewDocumentCommand{\lcrs@addlanguage}{ m m m m m O{} }{
+    % #1: language
+    % #2: points singular
+    % #3: points plural
+    % #4: question identifier
+    % #5: solution identifier
+    % #6: Code to execute if the language is selected.
+    \csdef{lcrs@setlanguage@#1}{
+        \csdef{currentlanguage}{#1}
+        \pointpoints{#2}{#3}
+        \questionidentifier{#4}
+        \solutionidentifier{#5}
+        #6
+    }
+}
+
+% Language selectors
+\lcrs@addlanguage{en}{point}{points}{Question}{Solution}[
     \examtitle{Course Title -- Final Exam}
     \examdate{[Date]}
     \classname{Class Name}
-    \questionidentifier{Question}
-}
-
-% Selector for german language
-\csdef{lcrs@setlanguage@de}{
-    \togglefalse{lcrs@language@english}
-    \toggletrue{lcrs@language@german}
-    \pointpoints{Punkt}{Punkte}
+]
+\lcrs@addlanguage{de}{Punkt}{Punkte}{Aufgabe}{Lösung}[
     \examtitle{Vorlesungsbezeichnung -- Abschlussklausur}
     \examdate{[Datum]}
     \classname{Kursbezeichnung}
-    \questionidentifier{Aufgabe}
-}
+]
 
+% Package options for selecting the language
 \DeclareOption{en}{\lcrs@setlanguage@en}
 \DeclareOption{de}{\lcrs@setlanguage@de}
-
 \ExecuteOptions{en}
+
+% Package options for selecting the programming language
+\DeclareOption{go}{\listingdefaultlang{go}}
+\DeclareOption{java}{\listingdefaultlang{java}}
+\DeclareOption{latex}{\listingdefaultlang{tex}}
+\ExecuteOptions{go}
+
 \ProcessOptions\relax
 
-% Macro for inserting the title page into the text.
-% Respects whether the cover page is enabled or not.
-\NewDocumentCommand{\insertcoverpage}{}{
-    % #1: file name from which to read the cover page.
-    \iftoggle{lcrs@coverpage@enabled}{
-        \begin{coverpages}
-            \lcrs@coverpage
-        \end{coverpages}
-    }{}
-}
-
 % Macros for controlling the package behaviour.
-\lcrs@toggle{coverpage}
+\lcrs@toggle{coverpage}[\csdef{insertcoverpage}{\newpage\lcrs@coverpage\newpage}][\csdef{insertcoverpage}{}]
 \lcrs@toggle{solutions}[\printanswers][\noprintanswers]
 
 % A TColorBox for drawing task headers.
