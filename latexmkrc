@@ -55,6 +55,7 @@ addsrcfiles("$srcdir/trees",
 );
 
 addsrcfiles("$srcdir/examreports",
+    "exam2report_report_commands.tex",
     "exam2report_submission_commands.tex",
     "exam2report_task_commands.tex",
     "exam2report_envs.tex",
