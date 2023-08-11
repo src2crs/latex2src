@@ -53,3 +53,7 @@ addsrcfiles("$srcdir/cwd2sections",
 addsrcfiles("$srcdir/trees",
     "src2trees.tex",
 );
+
+addsrcfiles("$srcdir/examreports",
+    "exam2report_envs.tex",
+);

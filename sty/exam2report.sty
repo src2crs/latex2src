@@ -1,0 +1,120 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{exam2report}[2023/08/11 Exam2Report]
+
+\RequirePackage{lcrscommon}
+\RequirePackage{tabularx}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins}
+
+% Setters for strings used in the exam report.
+\lcrs@setter{submissioncaptionsingular}
+\lcrs@setter{submissioncaptionplural}
+\NewDocumentCommand{\submissioncaption}{ m m }{
+    \submissioncaptionsingular{#1}
+    \submissioncaptionplural{#2}
+}
+
+\lcrs@setter{taskcaptionsingular}
+\lcrs@setter{taskcaptionplural}
+\NewDocumentCommand{\taskcaption}{ m m }{
+    \taskcaptionsingular{#1}
+    \taskcaptionplural{#2}
+}
+
+% Language options
+\DeclareOption{en}{
+    \submissioncaption{Submission}{Submissions}
+    \taskcaption{Task}{Tasks}
+}
+\DeclareOption{de}{
+    \submissioncaption{Abgabe}{Abgaben}
+    \taskcaption{Aufgabe}{Aufgaben}
+}
+
+\lcrs@toggle{examreport@debug}
+\disableexamreport@debug
+\DeclareOption{debug}{\enableexamreport@debug}
+
+\ExecuteOptions{en}
+\ProcessOptions\relax
+
+% A TColorBox for debug output.
+\NewTColorBox{lcrs@debugbox}{}{
+    on line,
+    arc=0pt,outer arc=0pt,
+    boxsep=0pt,left=1pt,right=1pt,top=2pt,bottom=2pt,
+    boxrule=0pt,bottomrule=1pt,toprule=1pt,
+    colback=red!5!white,colframe=red!75!black
+}
+
+\NewDocumentCommand{\lcrs@debug}{ m }{
+    \ifexamreport@debug{
+        \begin{lcrs@debugbox}
+            #1
+        \end{lcrs@debugbox}
+    }{}
+}
+
+% Setters to use in an exam report.
+\lcrs@setter{submissiondir}[\textbf{<invalid>}]
+\lcrs@setter{currentsubmission@name}[\textbf{<invalid>}]
+\lcrs@setter{currentsubmission@title}[\textbf{<invalid>}]
+\lcrs@setter{currentsubmission@dir}[\textbf{<invalid>}]
+\lcrs@setter{currenttask@name}[\textbf{<invalid>}]
+\lcrs@setter{currenttask@title}[\textbf{<invalid>}]
+\lcrs@setter{currenttask@dir}[\textbf{<invalid>}]
+\lcrs@setter{currenttask@file}[\textbf{<invalid>}]
+
+% Debug output for setters.
+\NewDocumentCommand{\lcrs@debug@values}{o}{
+    % #1: optional caption
+    \IfValueT{#1}{\ifexamreport@debug{\textbf{#1}}{}}
+
+    \lcrs@debug{
+        \begin{tabularx}{\textwidth}{ll}
+            Directory for submissions & \lcrs@submissiondir \\
+            Current submission name & \lcrs@currentsubmission@name \\
+            Current submission title & \lcrs@currentsubmission@title \\
+            Current submission directory & \lcrs@currentsubmission@dir \\
+            Current task name & \lcrs@currenttask@name \\
+            Current task title & \lcrs@currenttask@title \\
+            Current task directory & \lcrs@currenttask@dir \\
+            Current task file & \lcrs@currenttask@file \\
+        \end{tabularx}
+    }
+}
+
+% Environment for a complete exam report.
+\NewDocumentEnvironment{examreport}{ m }{
+    % #1: submission directory (relative to the document root)
+    \submissiondir{#1}
+
+    \lcrs@debug@values[Inside examreport environment:]
+}{}
+
+% Setters to use in the submissionreport environment.
+
+
+% Environment for a single submission report.
+\NewDocumentEnvironment{submissionreport}{ m }{
+    % #1: submission name
+    \currentsubmission@name{#1}
+    \currentsubmission@title{\lcrs@submissioncaptionsingular : #1}
+    \currentsubmission@dir{\lcrs@submissiondir/#1}
+
+    \lcrs@debug@values[Inside submissionreport environment:]
+}{}
+
+% Environment for a single task report.
+\NewDocumentEnvironment{taskreport}{ m }{
+    % #1: task name
+    \currenttask@name{#1}
+    \currenttask@title{\lcrs@taskcaptionsingular : #1}
+    \currenttask@dir{\lcrs@currentsubmission@dir/#1}
+    \currenttask@file{\lcrs@currenttask@dir/#1.tex}
+    
+    \lcrs@debug@values[Inside taskreport environment:]
+}{}
+
+% TODOs:
+% - [ ] Generalize debug commands to lcrscommon.sty.
