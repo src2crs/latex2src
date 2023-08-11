@@ -90,16 +90,13 @@
     \lcrs@debug@values[Inside examreport environment:]
 }{}
 
-% Setters to use in the submissionreport environment.
-
-
 % Environment for a single submission report.
 \NewDocumentEnvironment{submissionreport}{ m }{
     % #1: submission name
     \currentsubmission@name{#1}
     \currentsubmission@title{\lcrs@submissioncaptionsingular : #1}
     \currentsubmission@dir{\lcrs@submissionsdir/#1}
-
+    
     \lcrs@debug@values[Inside submissionreport environment:]
 }{}
 
