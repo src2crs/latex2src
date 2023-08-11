@@ -56,7 +56,7 @@
 }
 
 % Setters to use in an exam report.
-\lcrs@setter{submissiondir}[\textbf{<invalid>}]
+\lcrs@setter{submissionsdir}[\textbf{<invalid>}]
 \lcrs@setter{currentsubmission@name}[\textbf{<invalid>}]
 \lcrs@setter{currentsubmission@title}[\textbf{<invalid>}]
 \lcrs@setter{currentsubmission@dir}[\textbf{<invalid>}]
@@ -85,10 +85,8 @@
 }
 
 % Environment for a complete exam report.
-\NewDocumentEnvironment{examreport}{ m }{
+\NewDocumentEnvironment{examreport}{ O{\lcrs@submissionsdir} }{
     % #1: submission directory (relative to the document root)
-    \submissiondir{#1}
-
     \lcrs@debug@values[Inside examreport environment:]
 }{}
 
@@ -100,7 +98,7 @@
     % #1: submission name
     \currentsubmission@name{#1}
     \currentsubmission@title{\lcrs@submissioncaptionsingular : #1}
-    \currentsubmission@dir{\lcrs@submissiondir/#1}
+    \currentsubmission@dir{\lcrs@submissionsdir/#1}
 
     \lcrs@debug@values[Inside submissionreport environment:]
 }{}
