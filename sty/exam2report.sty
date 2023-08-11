@@ -94,6 +94,7 @@
 }{}
 
 % Environment for a single submission report.
+% Mainly for internal use.
 \NewDocumentEnvironment{submissionreport}{ m }{
     % #1: submission name
     \currentsubmission@name{#1}
@@ -102,6 +103,15 @@
     
     \lcrs@debug@values[Inside submissionreport environment:]
 }{}
+
+% Command to include a single submission report.
+\NewDocumentCommand{\insertsubmissionreport}{ m >{\SplitList{,}} m }{
+    % #1: submission name
+    % #2: task names for which to include reports (comma-separated list)
+    \begin{submissionreport}{#1}
+        \ProcessList{#2}{\inserttaskreport}
+    \end{submissionreport}
+}
 
 % Environment for a single task report.
 % Mainly for internal use.
