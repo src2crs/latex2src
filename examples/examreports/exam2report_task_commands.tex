@@ -1,0 +1,24 @@
+\documentclass[a4paper]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage[debug]{exam2report}
+
+\begin{document}
+    \title{Exam Report -- Example for Environments}
+    \author{Reiner Hüchting}
+
+    \maketitle
+
+    \begin{examreport}[../submissions]
+        \begin{submissionreport}{submission1}
+            \inserttaskreport{task1}
+        \end{submissionreport}
+        \begin{submissionreport}{submission2}
+            \inserttaskreport{task1}
+            \inserttaskreport{task2}
+        \end{submissionreport}
+    \end{examreport}
+
+    \begin{submissionreport}{submission-outside}
+    \end{submissionreport}
+\end{document}
