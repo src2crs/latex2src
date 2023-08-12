@@ -69,6 +69,7 @@
 \csdef{lcrs@tasks}{}
 
 % Setters mainly for internal use.
+\lcrs@setter{currentsubmission@basedir}[\textbf{<invalid>}]
 \lcrs@setter{currentsubmission@name}[\textbf{<invalid>}]
 \lcrs@setter{currentsubmission@title}[\textbf{<invalid>}]
 \lcrs@setter{currentsubmission@dir}[\textbf{<invalid>}]
@@ -84,6 +85,7 @@
 
     \lcrs@debug{
         \begin{tabularx}{\textwidth}{ll}
+            Current submission base dir & \lcrs@currentsubmission@basedir \\
             Current submission name & \lcrs@currentsubmission@name \\
             Current submission title & \lcrs@currentsubmission@title \\
             Current submission directory & \lcrs@currentsubmission@dir \\
@@ -98,13 +100,14 @@
 % Environment for a complete exam report.
 % Mainly for internal use.
 \NewDocumentEnvironment{examreport}{ O{\lcrs@submissionsdir} }{
-    % #1: submission directory (relative to the document root)
+    % #1: submission base directory (relative to the document root)
+    \currentsubmission@basedir{#1}
     \lcrs@debug@values[Inside examreport environment:]
 }{}
 
 % Command to include a complete exam report.
 \NewDocumentCommand{\insertexamreport}{ O{\lcrs@submissionsdir} >{\SplitList{,}} O{} O{} }{
-    % #1: submission directory (relative to the document root)
+    % #1: submission base directory (relative to the document root)
     % #2: submission names for which to include reports (comma-separated list)
     % #3: task names for which to include reports (comma-separated list)
     \csdef{lcrs@local@wrapper}##1{\insertsubmissionreport{##1}[#3]}
@@ -120,7 +123,7 @@
     % #1: submission name
     \currentsubmission@name{#1}
     \currentsubmission@title{\lcrs@submissioncaptionsingular : #1}
-    \currentsubmission@dir{\lcrs@submissionsdir/#1}
+    \currentsubmission@dir{\lcrs@currentsubmission@basedir/#1}
     
     \lcrs@debug@values[Inside submissionreport environment:]
 }{}
