@@ -95,7 +95,7 @@
 }{}
 
 % Command to include a complete exam report.
-\NewDocumentCommand{\insertexamreport}{ O{\lcrs@submissionsdir} >{\SplitList{,}} m m }{
+\NewDocumentCommand{\insertexamreport}{ O{\lcrs@submissionsdir} >{\SplitList{,}} O{\lcrs@submissions} O{lcrs@tasks} }{
     % #1: submission directory (relative to the document root)
     % #2: submission names for which to include reports (comma-separated list)
     % #3: task names for which to include reports (comma-separated list)
