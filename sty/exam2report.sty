@@ -61,10 +61,12 @@
     % #1: submission names (comma-separated list)
     \forcsvlist{\listcsadd{lcrs@submissions}}{#1}
 }
+\csdef{lcrs@submissions}{}
 \NewDocumentCommand{\addtasks}{ m }{
     % #1: task names (comma-separated list)
     \forcsvlist{\listcsadd{lcrs@tasks}}{#1}
 }
+\csdef{lcrs@tasks}{}
 
 % Setters mainly for internal use.
 \lcrs@setter{currentsubmission@name}[\textbf{<invalid>}]
@@ -106,9 +108,9 @@
     % #2: submission names for which to include reports (comma-separated list)
     % #3: task names for which to include reports (comma-separated list)
     \csdef{lcrs@local@wrapper}##1{\insertsubmissionreport{##1}[#3]}
-    \addsubmissions{#2}
     \begin{examreport}[#1]
         \forlistloop{\lcrs@local@wrapper}{\lcrs@submissions}
+        \forcsvlist{\lcrs@local@wrapper}{#2}
     \end{examreport}
 }
 
@@ -127,9 +129,9 @@
 \NewDocumentCommand{\insertsubmissionreport}{ m O{} }{
     % #1: submission name
     % #2: task names for which to include reports (comma-separated list)
-    \addtasks{#2}
     \begin{submissionreport}{#1}
         \forlistloop{\inserttaskreport}{\lcrs@tasks}
+        \forcsvlist{\inserttaskreport}{#2}
     \end{submissionreport}
 }
 
