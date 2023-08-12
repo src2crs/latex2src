@@ -106,14 +106,14 @@
 }{}
 
 % Command to include a complete exam report.
-\NewDocumentCommand{\insertexamreport}{ O{\lcrs@submissionsdir} >{\SplitList{,}} O{} O{} }{
+\NewDocumentCommand{\insertexamreport}{ O{\lcrs@submissionsdir} O{} O{} }{
     % #1: submission base directory (relative to the document root)
     % #2: submission names for which to include reports (comma-separated list)
     % #3: task names for which to include reports (comma-separated list)
     \csdef{lcrs@local@wrapper}##1{\insertsubmissionreport{##1}[#3]}
     \begin{examreport}[#1]
         \forlistloop{\lcrs@local@wrapper}{\lcrs@submissions}
-        \forcsvlist{\lcrs@local@wrapper}{#2}
+        \IfValueT{#2}{\forcsvlist{\lcrs@local@wrapper}{#2}}
     \end{examreport}
 }
 
@@ -131,12 +131,12 @@
 }{}
 
 % Command to include a single submission report.
-\NewDocumentCommand{\insertsubmissionreport}{ m O{} }{
+\NewDocumentCommand{\insertsubmissionreport}{ m o }{
     % #1: submission name
     % #2: task names for which to include reports (comma-separated list)
     \begin{submissionreport}{#1}
         \forlistloop{\inserttaskreport}{\lcrs@tasks}
-        \forcsvlist{\inserttaskreport}{#2}
+        \IfValueT{#2}{\forcsvlist{\inserttaskreport}{#2}}
     \end{submissionreport}
 }
 
