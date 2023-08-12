@@ -57,8 +57,14 @@
 
 % Setters to use in an exam report.
 \lcrs@setter{submissionsdir}[\textbf{<invalid>}]
-\lcrs@setter{submissions}
-\lcrs@setter{tasks}
+\NewDocumentCommand{\addsubmissions}{ m }{
+    % #1: submission names (comma-separated list)
+    \forcsvlist{\listcsadd{lcrs@submissions}}{#1}
+}
+\NewDocumentCommand{\addtasks}{ m }{
+    % #1: task names (comma-separated list)
+    \forcsvlist{\listcsadd{lcrs@tasks}}{#1}
+}
 
 % Setters mainly for internal use.
 \lcrs@setter{currentsubmission@name}[\textbf{<invalid>}]
@@ -95,13 +101,14 @@
 }{}
 
 % Command to include a complete exam report.
-\NewDocumentCommand{\insertexamreport}{ O{\lcrs@submissionsdir} >{\SplitList{,}} O{\lcrs@submissions} O{lcrs@tasks} }{
+\NewDocumentCommand{\insertexamreport}{ O{\lcrs@submissionsdir} >{\SplitList{,}} O{} O{} }{
     % #1: submission directory (relative to the document root)
     % #2: submission names for which to include reports (comma-separated list)
     % #3: task names for which to include reports (comma-separated list)
-    \csdef{lcrs@local@wrapper}##1{\insertsubmissionreport{##1}{#3}}
+    \csdef{lcrs@local@wrapper}##1{\insertsubmissionreport{##1}[#3]}
+    \addsubmissions{#2}
     \begin{examreport}[#1]
-        \ProcessList{#2}{\lcrs@local@wrapper}
+        \forlistloop{\lcrs@local@wrapper}{\lcrs@submissions}
     \end{examreport}
 }
 
@@ -117,11 +124,12 @@
 }{}
 
 % Command to include a single submission report.
-\NewDocumentCommand{\insertsubmissionreport}{ m >{\SplitList{,}} m }{
+\NewDocumentCommand{\insertsubmissionreport}{ m O{} }{
     % #1: submission name
     % #2: task names for which to include reports (comma-separated list)
+    \addtasks{#2}
     \begin{submissionreport}{#1}
-        \ProcessList{#2}{\inserttaskreport}
+        \forlistloop{\inserttaskreport}{\lcrs@tasks}
     \end{submissionreport}
 }
 
