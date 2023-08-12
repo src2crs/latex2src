@@ -31,12 +31,22 @@
     \taskcaption{Aufgabe}{Aufgaben}
 }
 
+% Programming language options
+\lcrs@setter{examreport@srclanguage}
+\lcrs@setter{examreport@srcfilesuffix}
+\DeclareOption{go}{\examreport@srclanguage{go}\examreport@srcfilesuffix{go}}
+\DeclareOption{java}{\examreport@srclanguage{java}\examreport@srcfilesuffix{java}}
+\DeclareOption{tex}{\examreport@srclanguage{tex}\examreport@srcfilesuffix{tex}}
+
 \lcrs@toggle{examreport@debug}
 \disableexamreport@debug
 \DeclareOption{debug}{\enableexamreport@debug}
 
 \ExecuteOptions{en}
+\ExecuteOptions{go}
 \ProcessOptions\relax
+
+\RequirePackage[\lcrs@examreport@srclanguage]{src2listing}
 
 % A TColorBox for debug output.
 \NewTColorBox{lcrs@debugbox}{}{
@@ -147,7 +157,7 @@
     \currenttask@name{#1}
     \currenttask@title{\lcrs@taskcaptionsingular : #1}
     \currenttask@dir{\lcrs@currentsubmission@dir/#1}
-    \currenttask@file{\lcrs@currenttask@dir/#1.tex}
+    \currenttask@file{\lcrs@currenttask@dir/#1.\lcrs@examreport@srcfilesuffix}
     
     \lcrs@debug@values[Inside taskreport environment:]
 
@@ -158,7 +168,7 @@
 \NewDocumentCommand{\inserttaskreport}{ m }{
     % #1: task name
     \begin{taskreport}{#1}
-        % TODO: Actually include the task report.
+        \inputsrcfile{\lcrs@currenttask@file}
     \end{taskreport}
 }
 
