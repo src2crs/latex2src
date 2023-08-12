@@ -126,6 +126,8 @@
     \currentsubmission@dir{\lcrs@currentsubmission@basedir/#1}
     
     \lcrs@debug@values[Inside submissionreport environment:]
+
+    \section*{\lcrs@currentsubmission@title}
 }{}
 
 % Command to include a single submission report.
@@ -148,6 +150,8 @@
     \currenttask@file{\lcrs@currenttask@dir/#1.tex}
     
     \lcrs@debug@values[Inside taskreport environment:]
+
+    \subsection*{\lcrs@currenttask@title}
 }{}
 
 % Command to include a single task report.

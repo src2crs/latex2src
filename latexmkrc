@@ -56,6 +56,7 @@ addsrcfiles("$srcdir/trees",
 
 addsrcfiles("$srcdir/examreports",
     "exam2report_globals.tex",
+    "exam2report_globals_nodebug.tex",
     "exam2report_report_commands.tex",
     "exam2report_submission_commands.tex",
     "exam2report_task_commands.tex",
