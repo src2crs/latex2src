@@ -1,7 +1,8 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{src2listing}[2023/07/18 Source2Listing]
+\ProvidesPackage{src2listing}[2023/08/12 Source2Listing]
 
 \RequirePackage{lcrscommon}
+\RequirePackage{cwd2sections}
 
 \RequirePackage{tcolorbox}
 \tcbuselibrary{skins}
@@ -60,7 +61,7 @@
 % Input a source file as a listing.
 % Use the current working directory as the base directory.
 % Doesn't have a lower part by default.
-\NewTCBInputListing{\inputsrcfile}{ O{\lcrs@defaultlistingstyle} D<>{} m !O{0-1000} }{%
+\NewTCBInputListing{\inputsrcfile}{ O{} D<>{} m !O{0-1000} }{%
     % #1: tcolorbox options
     % #2: listing options
     % #3: file name
