@@ -168,7 +168,7 @@
 \NewDocumentCommand{\inserttaskreport}{ m }{
     % #1: task name
     \begin{taskreport}{#1}
-        \inputsrcfile{\lcrs@currenttask@file}
+        \inputsrcfile{\lcrs@currenttask@file}[BEGIN-END-1]
     \end{taskreport}
 }
 
@@ -184,3 +184,4 @@
 %   - src2listing already allows this, but the markers in the source file must
 %     be customizable from the report package.
 % - [ ] Add possibility to evaluate grading comments.
+% - [ ] Make line range in inserttaskreport customizable.
