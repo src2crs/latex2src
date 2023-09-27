@@ -153,6 +153,7 @@
     \lcrs@debug@values[Inside submissionreport environment:]
 
     \begin{submissionreporttitlebox}{\lcrs@currentsubmission@title}
+    \vspace{-1.5ex}
     \begin{multicols}{2}
 }{
     \end{multicols}
@@ -196,14 +197,14 @@
     \currenttask@file{\lcrs@currenttask@dir/#1.\lcrs@examreport@srcfilesuffix}
     
     \lcrs@debug@values[Inside taskreport environment:]
-
     \begin{taskreportbox}{#1}
+    \vspace{-1ex}
+}{
     \end{taskreportbox}
-    \vspace*{-3em}
-}{}
+}
 
 % Styling of listings for exams.
-\lstdefinestyle{examlisting}{
+\lstdefinestyle{examlistingstyle}{
     basicstyle=\ttfamily\tiny,
     language=go,
     numberstyle=\tiny,
@@ -219,7 +220,7 @@
     % #1: task name
     \begin{taskreport}{#1}
         \inputsrcfile[lcrsexamlistingbox]
-        <style=examlisting>
+        <style=examlistingstyle>
         {\lcrs@currenttask@file}[BEGIN-END-1]
     \end{taskreport}
 }
