@@ -4,6 +4,7 @@
 \RequirePackage{lcrscommon}
 \RequirePackage{tabularx}
 \RequirePackage{tcolorbox}
+\tcbuselibrary{breakable}
 \tcbuselibrary{skins}
 \RequirePackage{multicol}
 
@@ -154,6 +155,23 @@
     \end{submissionreport}
 }
 
+% Box for a single task report.
+\NewTColorBox{taskreportbox}{ m }{
+    % #1: Aufgabe
+    % #2: Punkte
+    % #3: Max.Punkte
+    enhanced,
+    breakable,
+    frame hidden,
+    interior hidden,
+    sharpish corners,
+    coltitle=black,colbacktitle=black!10,fonttitle=\bfseries,
+    subtitle style={enhanced, frame hidden},
+    title={\scriptsize Aufgabe #1},
+    lowerbox=ignored,
+    lower separated=false,
+}
+
 % Environment for a single task report.
 % Mainly for internal use.
 \NewDocumentEnvironment{taskreport}{ m }{
@@ -165,8 +183,10 @@
     
     \lcrs@debug@values[Inside taskreport environment:]
 
-    \subsection*{\lcrs@currenttask@title}
-}{}
+    \begin{taskreportbox}{#1}
+}{
+    \end{taskreportbox}
+}
 
 % Styling of listings for exams.
 \lstdefinestyle{examlisting}{
