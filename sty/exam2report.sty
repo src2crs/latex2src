@@ -129,6 +129,19 @@
     \end{examreport}
 }
 
+\NewTColorBox{submissionreporttitlebox}{ m }{
+    % #1: title
+    enhanced,
+    breakable,
+    frame hidden,
+    interior hidden,
+    sharpish corners,
+    coltitle=black,colbacktitle=black!10,fonttitle=\bfseries,
+    subtitle style={enhanced, frame hidden},
+    title={\scriptsize #1},
+    lowerbox=ignored,
+}
+
 % Environment for a single submission report.
 % Mainly for internal use.
 \NewDocumentEnvironment{submissionreport}{ m }{
@@ -139,10 +152,11 @@
     
     \lcrs@debug@values[Inside submissionreport environment:]
 
-    \section*{\lcrs@currentsubmission@title}
+    \begin{submissionreporttitlebox}{\lcrs@currentsubmission@title}
     \begin{multicols}{2}
 }{
     \end{multicols}
+    \end{submissionreporttitlebox}
 }
 
 % Command to include a single submission report.
