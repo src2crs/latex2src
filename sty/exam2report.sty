@@ -198,16 +198,17 @@
     \lcrs@debug@values[Inside taskreport environment:]
 
     \begin{taskreportbox}{#1}
-}{
     \end{taskreportbox}
-}
+    \vspace*{-3em}
+}{}
 
 % Styling of listings for exams.
 \lstdefinestyle{examlisting}{
     basicstyle=\ttfamily\tiny,
     language=go,
     numberstyle=\tiny,
-    numbers=left,
+    numbers=none,
+%    numbers=left,
     tabsize=2,
     breaklines=true,
     xleftmargin=1em,
