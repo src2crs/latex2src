@@ -5,6 +5,7 @@
 \RequirePackage{tabularx}
 \RequirePackage{tcolorbox}
 \tcbuselibrary{skins}
+\RequirePackage{multicol}
 
 % Setters for strings used in the exam report.
 \lcrs@setter{submissioncaptionsingular}
@@ -138,7 +139,10 @@
     \lcrs@debug@values[Inside submissionreport environment:]
 
     \section*{\lcrs@currentsubmission@title}
-}{}
+    \begin{multicols}{2}
+}{
+    \end{multicols}
+}
 
 % Command to include a single submission report.
 \NewDocumentCommand{\insertsubmissionreport}{ m o }{
@@ -164,11 +168,24 @@
     \subsection*{\lcrs@currenttask@title}
 }{}
 
+% Styling of listings for exams.
+\lstdefinestyle{examlisting}{
+    basicstyle=\ttfamily\tiny,
+    language=go,
+    numberstyle=\tiny,
+    numbers=left,
+    tabsize=2,
+    breaklines=true,
+    xleftmargin=1em,
+}
+
 % Command to include a single task report.
 \NewDocumentCommand{\inserttaskreport}{ m }{
     % #1: task name
     \begin{taskreport}{#1}
-        \inputsrcfile{\lcrs@currenttask@file}[BEGIN-END-1]
+        \inputsrcfile[lcrsexamlistingbox]
+        <style=examlisting>
+        {\lcrs@currenttask@file}[BEGIN-END-1]
     \end{taskreport}
 }
 
